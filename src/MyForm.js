@@ -2,40 +2,33 @@ import React, { useState, useRef } from "react";
 
 function MyForm() {
   const [inputs, setInputs] = useState({});
-  const [check, setCheck] = useState(false);
+  //const[(check, setCheck)] = useState(false);
   const myFormRef = useRef(null);
   const myFormRefLname = useRef(null);
   const myFormRefMail = useRef(null);
   const myFormRefConMail = useRef(null);
 
   const handleChange = (event) => {
-    //event.preventDefault();
+    event.preventDefault();
     const target = event.target;
     const value = target.value;
     const name = target.name;
     setInputs((values) => ({ ...values, [name]: value }));
-
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (inputs.mail === inputs.confirmmail) {
-      setCheck(true);
-      console.log("jjj");
+      alert("Registration is successful!");
+      document.getElementById("confirm").innerHTML = "Confirm your mail:";
+      document.getElementById("confirm").style.color = "black";
+      document.getElementById("confirmMail").style.borderColor = "gray";
+      console.log(inputs);
+      removeValues();
     } else {
       document.getElementById("confirm").innerHTML = "Mail doesn't match!";
       document.getElementById("confirm").style.color = "red";
       document.getElementById("confirmMail").style.borderColor = "red";
-      document.getElementById("button").type = "disabled";
     }
-  };
-
-  
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(inputs);
-    console.log(check);
-    alert("Registration is successful!");
-    //removeValues();
-    document.getElementById("confirm").innerHTML = "Confirm your mail:";
-    document.getElementById("confirm").style.color = "black";
-    document.getElementById("confirmMail").style.borderColor = "gray";
   };
 
   function removeValues() {
@@ -83,6 +76,7 @@ function MyForm() {
                   value={inputs.name}
                   onChange={handleChange}
                   className="form-control"
+                  required
                 />{" "}
               </label>
             </div>
@@ -96,6 +90,7 @@ function MyForm() {
                   value={inputs.lastname}
                   onChange={handleChange}
                   className="form-control"
+                  required
                 />
               </label>
             </div>
@@ -149,5 +144,4 @@ function MyForm() {
     </div>
   );
 }
-
 export default MyForm;
