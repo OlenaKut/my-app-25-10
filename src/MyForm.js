@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 
 function MyForm() {
   const [inputs, setInputs] = useState({});
-  //const[(check, setCheck)] = useState(false);
   const myFormRef = useRef(null);
   const myFormRefLname = useRef(null);
   const myFormRefMail = useRef(null);
@@ -22,7 +21,9 @@ function MyForm() {
       document.getElementById("confirm").innerHTML = "Confirm your mail:";
       document.getElementById("confirm").style.color = "black";
       document.getElementById("confirmMail").style.borderColor = "gray";
-      console.log(inputs);
+      //console.log(inputs);
+      addCookies();
+      //console.log(document.cookie);
       removeValues();
     } else {
       document.getElementById("confirm").innerHTML = "Mail doesn't match!";
@@ -37,6 +38,16 @@ function MyForm() {
     myFormRefLname.current.value = "";
     myFormRefMail.current.value = "";
     myFormRefConMail.current.value = "";
+  }
+
+  function addCookies() {
+    let name = "Fname=" + inputs.username + ";";
+    let sname = "Sname=" + inputs.lastname + ";";
+    let mail = "Mail=" + inputs.mail + ";";
+
+    document.cookie = name + ";";
+    document.cookie = sname + ";";
+    document.cookie = mail + ";";
   }
 
   return (
@@ -73,7 +84,7 @@ function MyForm() {
                   ref={myFormRef}
                   type="text"
                   name="username"
-                  value={inputs.name}
+                  value={inputs.username}
                   onChange={handleChange}
                   className="form-control"
                   required
